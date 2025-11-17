@@ -12,14 +12,12 @@ class DirectorsCutManager {
       thumbnail.addEventListener('click', () => this.loadVideo(wrapper));
     });
 
-    // Close video when clicking outside
     document.addEventListener('click', (e) => {
       if (this.activeVideo && !this.activeVideo.contains(e.target)) {
         this.closeActiveVideo();
       }
     });
 
-    // Handle escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.activeVideo) {
         this.closeActiveVideo();
@@ -28,7 +26,6 @@ class DirectorsCutManager {
   }
 
   loadVideo(wrapper) {
-    // Close currently active video
     if (this.activeVideo && this.activeVideo !== wrapper) {
       this.closeActiveVideo();
     }
@@ -36,27 +33,21 @@ class DirectorsCutManager {
     const vimeoId = wrapper.getAttribute('data-vimeo-id');
     const embedContainer = wrapper.querySelector('.video-embed');
     
-    // Show loading state
     embedContainer.innerHTML = '<div class="video-loading">Loading...</div>';
     embedContainer.style.display = 'block';
     
-    // Create Vimeo iframe with proper parameters to remove instructions
     const iframe = document.createElement('iframe');
     iframe.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0&badge=0&autopause=0&dnt=1`;
     iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share';
     iframe.allowFullscreen = true;
     iframe.referrerPolicy = 'strict-origin-when-cross-origin';
     
-    // Replace loading with iframe
     setTimeout(() => {
       embedContainer.innerHTML = '';
       embedContainer.appendChild(iframe);
-      
-      // Add active class
       wrapper.classList.add('active');
       this.activeVideo = wrapper;
       
-      // Scroll to video if on mobile
       if (window.innerWidth < 768) {
         wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
@@ -68,12 +59,10 @@ class DirectorsCutManager {
       const embedContainer = this.activeVideo.querySelector('.video-embed');
       const iframe = embedContainer.querySelector('iframe');
       
-      // Remove iframe to stop video
       if (iframe) {
         iframe.remove();
       }
       
-      // Hide embed and show thumbnail
       embedContainer.style.display = 'none';
       embedContainer.innerHTML = '';
       this.activeVideo.classList.remove('active');
@@ -102,7 +91,7 @@ faders.forEach(fader => {
   appearOnScroll.observe(fader);
 });
 
-// Pause other videos when one plays (for any remaining video elements)
+// Pause other videos when one plays
 document.querySelectorAll("video").forEach(video => {
   video.addEventListener("play", () => {
     document.querySelectorAll("video").forEach(other => {
@@ -123,10 +112,8 @@ const observer = new IntersectionObserver(
   { threshold: 0.2 }
 );
 
-// Apply to any remaining video elements
 document.querySelectorAll("video").forEach(video => observer.observe(video));
 
-// Phone number reveal function
 function revealNumber() {
   const phoneNumber = "+27 66 295 9993";
   const phoneElement = document.getElementById('phoneNumber');
