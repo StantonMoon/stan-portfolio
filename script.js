@@ -1,4 +1,4 @@
-// Director's Cut Video Management
+
 class DirectorsCutManager {
   constructor() {
     this.videoWrappers = document.querySelectorAll('.video-wrapper');
@@ -71,7 +71,7 @@ class DirectorsCutManager {
   }
 }
 
-// Intersection Observer for fade-in animations
+
 const faders = document.querySelectorAll(".fade-in");
 
 const appearOptions = {
@@ -124,7 +124,8 @@ function revealNumber() {
   button.style.display = 'none';
 }
 
-// Initialize when DOM is loaded
+
 document.addEventListener('DOMContentLoaded', () => {
   new DirectorsCutManager();
 });
+
